@@ -8,6 +8,7 @@ import os
 from pydantic import BaseModel, SecretStr
 from dotenv import load_dotenv
 import config
+from app import realty
 
 load_dotenv()
 
