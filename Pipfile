@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 fastapi = "*"
-uvicorn = "*"
+uvicorn = {extras = ["standard"],version = "*"}
 requests = "*"
 gunicorn = "*"
 sqlalchemy = "*"
