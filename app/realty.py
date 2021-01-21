@@ -1,15 +1,20 @@
+"""Realty Info"""
+
 
 import os
 import requests
+
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends
 import sqlalchemy
+from pydantic import BaseModel, SecretStr
+
+from app import config
+
+load_dotenv()
+
 
 router = APIRouter()
-
-@router.get('/')
-def index():
-    return "Endpoints here"
 
 
 @router.get('/for_rent_list')
@@ -40,9 +45,10 @@ async def for_rent_list(api_key = config.settings.api_key,
                  "prop_type": prop_type}
 
     headers = {
-    'x-rapidapi-key': os.getenv("api_key"),
-    'x-rapidapi-host': os.getenv("host")
+    'x-rapidapi-key': os.getenv('api_key'),
+    'x-rapidapi-host': os.getenv('host')
     }
+
 
     response_for_rent = requests.request("GET", url, params = querystring, headers = headers,)
     return response_for_rent.json()['properties']
@@ -60,9 +66,10 @@ async def property_detail(property_id = "O3599084026"):
     url = "https://realtor.p.rapidapi.com/properties/v2/detail"
     querystring = {"property_id":property_id}
     headers = {
-    'x-rapidapi-key': os.getenv("api_key"),
-    'x-rapidapi-host': os.getenv("host")
+    'x-rapidapi-key': os.getenv('api_key'),
+    'x-rapidapi-host': os.getenv('host')
     }
+
 
     response_prop_detail = requests.request("GET", url, headers=headers, params=querystring)
     return response_prop_detail.json()['properties']
@@ -78,8 +85,8 @@ async def for_sale_list(api_key = config.settings.api_key,
     querystring = {"city": city ,"limit": limit,"offset":"0","state_code": state,"sort":"relevance"}
 
     headers = {
-    'x-rapidapi-key': os.getenv("api_key"),
-    'x-rapidapi-host': os.getenv("host")
+    'x-rapidapi-key': os.getenv('api_key'),
+    'x-rapidapi-host': os.getenv('host')
     }
 
     response_for_sale = requests.request("GET", url, headers=headers, params=querystring)

@@ -3,14 +3,11 @@ from fastapi import FastAPI, Depends
 import requests
 import uvicorn
 import json
-import pandas as pd
-import os
-from pydantic import BaseModel, SecretStr
-from dotenv import load_dotenv
-import config
-from app import realty
+from fastapi.middleware.cors import CORSMiddleware
 
-load_dotenv()
+from pydantic import BaseModel, SecretStr
+
+from app import realty
 
 description = """
 To use these interactive docs:
@@ -21,14 +18,14 @@ To use these interactive docs:
 - Scroll down to see the Server response Code & Details
 """
 
-app = FastAPI(debug = True, 
-              title = "Realty API",
-             description = description,
-             docs_url = '/')
+app = FastAPI(
+    title = "Jen's Realty API",
+    description = description,
+    docs_url = '/')
  
   
 app.include_router(realty.router, tags=['Realty'])
-app.include_router(pollution.router, tags=['Pollution'])
+#app.include_router(pollution.router, tags=['Pollution'])
 
 app.add_middleware(
     CORSMiddleware,
