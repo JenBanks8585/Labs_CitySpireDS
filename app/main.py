@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from pydantic import BaseModel, SecretStr
 
-from app import realty
+from app import realty, realtybasemodel
 
 description = """
 To use these interactive docs:
@@ -25,7 +25,7 @@ app = FastAPI(
  
   
 app.include_router(realty.router, tags=['Realty'])
-#app.include_router(pollution.router, tags=['Pollution'])
+app.include_router(realtybasemodel.router, tags=['Realty Using BaseModel'])
 
 app.add_middleware(
     CORSMiddleware,
