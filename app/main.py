@@ -25,7 +25,7 @@ app = FastAPI(
  
   
 app.include_router(realty.router, tags=['Realty'])
-app.include_router(realtybasemodel.router, tags=['Realty Using BaseModel'])
+#app.include_router(realtybasemodel.router, tags=['Realty Using BaseModel'])
 app.include_router(walk_score.router, tags=['Walkability Score'])
 
 app.add_middleware(
