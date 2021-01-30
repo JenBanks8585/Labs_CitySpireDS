@@ -75,3 +75,6 @@ async def for_sale_list(api_key = config.settings.api_key,
 
     response_for_sale = requests.request("GET", url, headers=headers, params=querystring)
     return response_for_sale.json()['properties']
+
+
+
