@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from pydantic import BaseModel, SecretStr
 
-from app import realty, realtybasemodel
+from app import realty, realtybasemodel, walk_score
 
 description = """
 To use these interactive docs:
@@ -26,6 +26,7 @@ app = FastAPI(
   
 app.include_router(realty.router, tags=['Realty'])
 app.include_router(realtybasemodel.router, tags=['Realty Using BaseModel'])
+app.include_router(walk_score.router, tags=['Walkability Score'])
 
 app.add_middleware(
     CORSMiddleware,
