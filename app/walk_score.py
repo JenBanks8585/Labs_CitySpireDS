@@ -52,4 +52,9 @@ def just_walk_score(address: str = "7 New Port Beach, Louisiana",
     
     message = what_message(result.walk_score)
 
-    return {"walk_score": result.walk_score, "walk_message":message}
+    response = {"walk_score": result.walk_score, 
+                "walk_message":message, 
+                "transit_score": result.transit_score, 
+                "bike_score": result.bike_score}
+
+    return response
