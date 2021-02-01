@@ -8,6 +8,7 @@ load_dotenv()
 
 router = APIRouter()
 
+
 def what_message(score):
     if 90 <= score <= 100:
         return "daily errands do not require a car"
@@ -22,7 +23,7 @@ def what_message(score):
 
 
 @router.get('/walk_score')
-async def get_walk_score(address: str = "7 New Port Beach, Louisiana",
+async def get_just_walk_score(address: str = "7 New Port Beach, Louisiana",
     lat: float = 39.5984,
     lon: float = -74.2151
     ):
@@ -35,7 +36,6 @@ async def get_walk_score(address: str = "7 New Port Beach, Louisiana",
     
     message = what_message(result.walk_score)
 
-    return {"walk_socore": result.walk_score, "walk_message":message}
-
+    return {"walk_score": result.walk_score, "walk_message":message}
 
 
