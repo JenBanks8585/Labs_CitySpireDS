@@ -8,7 +8,8 @@ from fastapi import APIRouter, Depends
 import sqlalchemy
 from pydantic import BaseModel, SecretStr
 
-from app import config, walk_score
+from app import config
+from app.walk_score import *
 
 load_dotenv()
 
@@ -48,7 +49,7 @@ async def streamlined_rent_list(api_key = config.settings.api_key,
     response = response_for_rent.json()['properties']
 
     rental_list = []
-    for i in range(len(response)):
+    for i in range(limit):
       line = response[i]['address']['line']
       city = response[i]['address']['city']
       state = response[i]['address']['state']
@@ -56,12 +57,20 @@ async def streamlined_rent_list(api_key = config.settings.api_key,
       lon = response[i]['address']['lon']
       photos = response[i]['photos']
       address = line +" "+  city + " "+ state
-      walk_score = get_walk_score(addre, lat, lon)
-      element = {'address': address, 'lat': lat, 'lon': lon, 'city':city, 'state':state, 'photos': photos,  'walk_score': walk_score}
+      walk_score = just_walk_score(address, lat, lon)
+      element = {'address': address, 
+                'lat': lat, 
+                'lon': lon, 
+                'city':city, 
+                'state':state, 
+                'photos': photos,  
+                'walk_score': walk_score}
+
       rental_list.append(element)
 
     return rental_list
   
+
 @router.get('/for_rent_list')
 async def for_rent_list(api_key = config.settings.api_key, 
              city: str = "New York City", 
@@ -111,7 +120,7 @@ async def property_detail(property_id: str = "O3599084026"):
 async def for_sale_list(api_key = config.settings.api_key, 
              city = "New York City", 
              state= "NY",             
-             limit = ):
+             limit = 4):
 
     
     url = os.getenv('url_list_for_sale')
