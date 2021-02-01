@@ -35,7 +35,7 @@ async def get_walk_score(address: str = "7 New Port Beach, Louisiana",
     
     message = what_message(result.walk_score)
 
-    return f"score of {result.walk_score} which means {message}"
+    return {"walk_socore": result.walk_score, "walk_message":message}
 
 
 
