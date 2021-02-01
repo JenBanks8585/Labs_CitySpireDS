@@ -15,6 +15,7 @@ python-dotenv = "*"
 walkscore-api = "*"
 uvloop = "==0.14.0"
 cython = "*"
+httptools = "*"
 
 [requires]
 python_version = "3.7"
